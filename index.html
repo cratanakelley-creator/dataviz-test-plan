@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<!-- saved from url=(0050)https://dev1753.slack.com/prototype-test-plan.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Data Visualization - Test Plan Charts</title>
-<link href="./index_files/css2" rel="stylesheet">
-<script src="./index_files/echarts.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js" crossorigin="anonymous"></script>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -75,48 +76,53 @@ body {
 
 	<div class="chart-card">
 		<h3>Weekly active users by platform</h3>
-		<div class="chart-container" id="chart-1" _echarts_instance_="ec_1779821181009" style="user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;"><div style="position: relative; width: 598px; height: 360px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas data-zr-dom-id="zr_0" width="1196" height="720" style="position: absolute; left: 0px; top: 0px; width: 598px; height: 360px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div class="" style="position: absolute; display: block; border-style: solid; white-space: nowrap; z-index: 9999999; box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 10px; transition: opacity 0.2s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.2s cubic-bezier(0.23, 1, 0.32, 1), transform 0.4s cubic-bezier(0.23, 1, 0.32, 1); background-color: rgb(255, 255, 255); border-width: 1px; border-radius: 4px; color: rgb(102, 102, 102); font: 13px / 20px Lato, sans-serif; padding: 10px; top: 0px; left: 0px; transform: translate3d(438px, 43px, 0px); border-color: rgb(255, 255, 255); pointer-events: none; visibility: hidden; opacity: 0;"><div style="margin: 0px 0 0;line-height:1;"><div style="margin: 0px 0 0;line-height:1;"><div style="font-size:13px;color:#666;font-weight:400;line-height:1;">Thu</div><div style="margin: 10px 0 0;line-height:1;"><div style="margin: 0px 0 0;line-height:1;"><div style="margin: 0px 0 0;line-height:1;"><span style="display:inline-block;margin-right:4px;border-radius:10px;width:10px;height:10px;background-color:#c474d3;"></span><span style="font-size:13px;color:#666;font-weight:400;margin-left:2px">Desktop</span><span style="float:right;margin-left:20px;font-size:13px;color:#666;font-weight:900">1,010</span><div style="clear:both"></div></div><div style="clear:both"></div></div><div style="margin: 10px 0 0;line-height:1;"><div style="margin: 0px 0 0;line-height:1;"><span style="display:inline-block;margin-right:4px;border-radius:10px;width:10px;height:10px;background-color:#83388a;"></span><span style="font-size:13px;color:#666;font-weight:400;margin-left:2px">Mobile</span><span style="float:right;margin-left:20px;font-size:13px;color:#666;font-weight:900">590</span><div style="clear:both"></div></div><div style="clear:both"></div></div><div style="clear:both"></div></div><div style="clear:both"></div></div><div style="clear:both"></div></div></div></div>
-		<div class="legend" id="legend-1"><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(196, 116, 211);"></span><span>Desktop</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(131, 56, 138);"></span><span>Mobile</span></span></div>
+		<div class="chart-container" id="chart-1"></div>
+		<div class="legend" id="legend-1"></div>
 	</div>
 
 	<div class="chart-card">
 		<h3>Engagement by acquisition channel</h3>
-		<div class="chart-container" id="chart-2" _echarts_instance_="ec_1779821181010" style="user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;"><div style="position: relative; width: 598px; height: 360px; padding: 0px; margin: 0px; border-width: 0px;"><canvas data-zr-dom-id="zr_0" width="1196" height="720" style="position: absolute; left: 0px; top: 0px; width: 598px; height: 360px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div class=""></div></div>
-		<div class="legend" id="legend-2"><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(196, 116, 211);"></span><span>Self-serve signups (US, T1 channels)</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(131, 56, 138);"></span><span>Sales-assisted onboarding (mid-market)</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(46, 182, 125);"></span><span>Paid acquisition (search + social, blended)</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(0, 122, 90);"></span><span>Partner referrals (system integrators)</span></span></div>
+		<div class="chart-container" id="chart-2"></div>
+		<div class="legend" id="legend-2"></div>
 	</div>
 
 	<div class="chart-card">
 		<h3>Engagement across all teams (max bounds)</h3>
-		<div class="chart-container" id="chart-3" _echarts_instance_="ec_1779821181011" style="user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;"><div style="position: relative; width: 598px; height: 360px; padding: 0px; margin: 0px; border-width: 0px;"><canvas data-zr-dom-id="zr_0" width="1196" height="720" style="position: absolute; left: 0px; top: 0px; width: 598px; height: 360px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div class=""></div></div>
-		<div class="legend" id="legend-3"><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(196, 116, 211);"></span><span>Team A</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(131, 56, 138);"></span><span>Team B</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(46, 182, 125);"></span><span>Team C</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(0, 122, 90);"></span><span>Team D</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(95, 123, 225);"></span><span>Team E</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(72, 100, 210);"></span><span>Team F</span></span></div>
+		<div class="chart-container" id="chart-3"></div>
+		<div class="legend" id="legend-3"></div>
 	</div>
 
 	<div class="chart-card">
 		<h3>Engagement across all teams (max bounds, area)</h3>
-		<div class="chart-container" id="chart-4" _echarts_instance_="ec_1779821181012" style="user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;"><div style="position: relative; width: 598px; height: 360px; padding: 0px; margin: 0px; border-width: 0px;"><canvas data-zr-dom-id="zr_0" width="1196" height="720" style="position: absolute; left: 0px; top: 0px; width: 598px; height: 360px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div class=""></div></div>
-		<div class="legend" id="legend-4"><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(196, 116, 211);"></span><span>Team A</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(131, 56, 138);"></span><span>Team B</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(46, 182, 125);"></span><span>Team C</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(0, 122, 90);"></span><span>Team D</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(95, 123, 225);"></span><span>Team E</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(72, 100, 210);"></span><span>Team F</span></span></div>
+		<div class="chart-container" id="chart-4"></div>
+		<div class="legend" id="legend-4"></div>
 	</div>
 
 	<div class="chart-card">
 		<h3>Engagement across all teams (max bounds, bar)</h3>
-		<div class="chart-container" id="chart-5" _echarts_instance_="ec_1779821181013" style="user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;"><div style="position: relative; width: 598px; height: 360px; padding: 0px; margin: 0px; border-width: 0px;"><canvas data-zr-dom-id="zr_0" width="1196" height="720" style="position: absolute; left: 0px; top: 0px; width: 598px; height: 360px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div class=""></div></div>
-		<div class="legend" id="legend-5"><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(196, 116, 211);"></span><span>Team A</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(131, 56, 138);"></span><span>Team B</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(46, 182, 125);"></span><span>Team C</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(0, 122, 90);"></span><span>Team D</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(95, 123, 225);"></span><span>Team E</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(72, 100, 210);"></span><span>Team F</span></span></div>
+		<div class="chart-container" id="chart-5"></div>
+		<div class="legend" id="legend-5"></div>
 	</div>
 
 	<div class="chart-card">
 		<h3>Engagement across all teams (max bounds, area)</h3>
-		<div class="chart-container" id="chart-6" _echarts_instance_="ec_1779821181014" style="user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;"><div style="position: relative; width: 598px; height: 360px; padding: 0px; margin: 0px; border-width: 0px;"><canvas data-zr-dom-id="zr_0" width="1196" height="720" style="position: absolute; left: 0px; top: 0px; width: 598px; height: 360px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div class=""></div></div>
-		<div class="legend" id="legend-6"><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(196, 116, 211);"></span><span>Team A</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(131, 56, 138);"></span><span>Team B</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(46, 182, 125);"></span><span>Team C</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(0, 122, 90);"></span><span>Team D</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(95, 123, 225);"></span><span>Team E</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(72, 100, 210);"></span><span>Team F</span></span></div>
+		<div class="chart-container" id="chart-6"></div>
+		<div class="legend" id="legend-6"></div>
 	</div>
 
 	<div class="chart-card">
 		<h3>Channels by category (max bounds)</h3>
-		<div class="chart-container" id="chart-7" _echarts_instance_="ec_1779821181015" style="user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;"><div style="position: relative; width: 598px; height: 360px; padding: 0px; margin: 0px; border-width: 0px;"><canvas data-zr-dom-id="zr_0" width="1196" height="720" style="position: absolute; left: 0px; top: 0px; width: 598px; height: 360px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div class=""></div></div>
-		<div class="legend" id="legend-7"><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(196, 116, 211);"></span><span>Engineering</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(131, 56, 138);"></span><span>Design</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(46, 182, 125);"></span><span>Product</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(0, 122, 90);"></span><span>Sales</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(95, 123, 225);"></span><span>Marketing</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(72, 100, 210);"></span><span>Support</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(196, 116, 211);"></span><span>Operations</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(131, 56, 138);"></span><span>Finance</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(46, 182, 125);"></span><span>People</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(0, 122, 90);"></span><span>Legal</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(95, 123, 225);"></span><span>Security</span></span><span class="legend-item"><span class="legend-swatch" style="background-color: rgb(72, 100, 210);"></span><span>Other</span></span></div>
+		<div class="chart-container" id="chart-7"></div>
+		<div class="legend" id="legend-7"></div>
 	</div>
 </div>
 
 <script>
+if (typeof echarts === 'undefined') {
+	document.querySelector('.page').innerHTML = '<p style="color:red;font-size:16px;padding:40px;">Error: ECharts failed to load. Check if your browser or network is blocking cdn.jsdelivr.net.</p>';
+	throw new Error('ECharts not loaded');
+}
+
 var PALETTE = ['#c474d3', '#83388a', '#2eb67d', '#007a5a', '#5f7be1', '#4864d2'];
 var AXIS_LINE = '#DDDDDD';
 var AXIS_TICK = '#616061';
@@ -301,6 +307,5 @@ window.addEventListener('resize', function() {
 	});
 });
 </script>
-
-
-</body></html>
+</body>
+</html>
