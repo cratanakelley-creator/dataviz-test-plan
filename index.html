@@ -123,7 +123,7 @@ if (typeof echarts === 'undefined') {
 	throw new Error('ECharts not loaded');
 }
 
-var PALETTE = ['#c474d3', '#83388a', '#2eb67d', '#007a5a', '#5f7be1', '#4864d2'];
+var PALETTE = ['#DE7A0D', '#C84600', '#5F7BE1', '#2840A9', '#20A271', '#007A5A', '#0E9DD3', '#0B527B', '#EF3E75', '#C01343', '#C474D3', '#611F69'];
 var AXIS_LINE = '#DDDDDD';
 var AXIS_TICK = '#616061';
 var FONT_FAMILY = 'Lato, sans-serif';
@@ -136,6 +136,7 @@ function makeFullSeries(offset) {
 
 var MAX_CATEGORIES = Array.from({length: 20}, function(_, i) { return 'Day ' + (i + 1); });
 var WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+var TEAM_NAMES = ['Team A', 'Team B', 'Team C', 'Team D', 'Team E', 'Team F', 'Team G', 'Team H', 'Team I', 'Team J', 'Team K', 'Team L'];
 
 function cartesianBase(categories, boundaryGap) {
 	return {
@@ -203,64 +204,44 @@ function buildLegend(containerId, names) {
 	buildLegend('legend-2', ['Self-serve signups (US, T1 channels)', 'Sales-assisted onboarding (mid-market)', 'Paid acquisition (search + social, blended)', 'Partner referrals (system integrators)']);
 })();
 
-// Chart 3: Engagement across all teams - max bounds (Line)
+// Chart 3: Engagement across all teams - max bounds (Line, 12 teams)
 (function() {
 	var opt = cartesianBase(MAX_CATEGORIES, false);
-	opt.series = [
-		{ name: 'Team A', data: makeFullSeries(0), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
-		{ name: 'Team B', data: makeFullSeries(1), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
-		{ name: 'Team C', data: makeFullSeries(2), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
-		{ name: 'Team D', data: makeFullSeries(3), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
-		{ name: 'Team E', data: makeFullSeries(4), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
-		{ name: 'Team F', data: makeFullSeries(5), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false }
-	];
+	opt.series = TEAM_NAMES.map(function(name, i) {
+		return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false };
+	});
 	echarts.init(document.getElementById('chart-3')).setOption(opt);
-	buildLegend('legend-3', ['Team A', 'Team B', 'Team C', 'Team D', 'Team E', 'Team F']);
+	buildLegend('legend-3', TEAM_NAMES);
 })();
 
-// Chart 4: Engagement across all teams - max bounds (Area)
+// Chart 4: Engagement across all teams - max bounds (Area, 12 teams)
 (function() {
 	var opt = cartesianBase(MAX_CATEGORIES, false);
-	opt.series = [
-		{ name: 'Team A', data: makeFullSeries(0), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } },
-		{ name: 'Team B', data: makeFullSeries(1), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } },
-		{ name: 'Team C', data: makeFullSeries(2), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } },
-		{ name: 'Team D', data: makeFullSeries(3), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } },
-		{ name: 'Team E', data: makeFullSeries(4), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } },
-		{ name: 'Team F', data: makeFullSeries(5), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } }
-	];
+	opt.series = TEAM_NAMES.map(function(name, i) {
+		return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } };
+	});
 	echarts.init(document.getElementById('chart-4')).setOption(opt);
-	buildLegend('legend-4', ['Team A', 'Team B', 'Team C', 'Team D', 'Team E', 'Team F']);
+	buildLegend('legend-4', TEAM_NAMES);
 })();
 
-// Chart 5: Engagement across all teams - max bounds (Bar)
+// Chart 5: Engagement across all teams - max bounds (Bar, 12 teams)
 (function() {
 	var opt = cartesianBase(MAX_CATEGORIES, true);
-	opt.series = [
-		{ name: 'Team A', data: makeFullSeries(0), type: 'bar', itemStyle: { borderRadius: [4, 4, 0, 0] } },
-		{ name: 'Team B', data: makeFullSeries(1), type: 'bar', itemStyle: { borderRadius: [4, 4, 0, 0] } },
-		{ name: 'Team C', data: makeFullSeries(2), type: 'bar', itemStyle: { borderRadius: [4, 4, 0, 0] } },
-		{ name: 'Team D', data: makeFullSeries(3), type: 'bar', itemStyle: { borderRadius: [4, 4, 0, 0] } },
-		{ name: 'Team E', data: makeFullSeries(4), type: 'bar', itemStyle: { borderRadius: [4, 4, 0, 0] } },
-		{ name: 'Team F', data: makeFullSeries(5), type: 'bar', itemStyle: { borderRadius: [4, 4, 0, 0] } }
-	];
+	opt.series = TEAM_NAMES.map(function(name, i) {
+		return { name: name, data: makeFullSeries(i), type: 'bar', itemStyle: { borderRadius: [4, 4, 0, 0] } };
+	});
 	echarts.init(document.getElementById('chart-5')).setOption(opt);
-	buildLegend('legend-5', ['Team A', 'Team B', 'Team C', 'Team D', 'Team E', 'Team F']);
+	buildLegend('legend-5', TEAM_NAMES);
 })();
 
-// Chart 6: Engagement across all teams - max bounds (Area, duplicate for Team E question)
+// Chart 6: Engagement across all teams - max bounds (Area, 12 teams)
 (function() {
 	var opt = cartesianBase(MAX_CATEGORIES, false);
-	opt.series = [
-		{ name: 'Team A', data: makeFullSeries(0), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } },
-		{ name: 'Team B', data: makeFullSeries(1), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } },
-		{ name: 'Team C', data: makeFullSeries(2), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } },
-		{ name: 'Team D', data: makeFullSeries(3), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } },
-		{ name: 'Team E', data: makeFullSeries(4), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } },
-		{ name: 'Team F', data: makeFullSeries(5), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } }
-	];
+	opt.series = TEAM_NAMES.map(function(name, i) {
+		return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } };
+	});
 	echarts.init(document.getElementById('chart-6')).setOption(opt);
-	buildLegend('legend-6', ['Team A', 'Team B', 'Team C', 'Team D', 'Team E', 'Team F']);
+	buildLegend('legend-6', TEAM_NAMES);
 })();
 
 // Chart 7: Channels by category - max bounds (Pie)
