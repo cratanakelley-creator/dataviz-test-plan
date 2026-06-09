@@ -123,7 +123,7 @@ if (typeof echarts === 'undefined') {
 	throw new Error('ECharts not loaded');
 }
 
-var PALETTE = ['#DE7A0D', '#C84600', '#5F7BE1', '#2840A9', '#20A271', '#007A5A', '#0E9DD3', '#0B527B', '#EF3E75', '#C01343', '#C474D3', '#611F69'];
+var PALETTE = ['#DE7A0D', '#2840A9', '#0E9DD3', '#C01343', '#20A271', '#C84600', '#C474D3', '#0B527B', '#5F7BE1', '#611F69', '#EF3E75', '#007A5A'];
 var AXIS_LINE = '#DDDDDD';
 var AXIS_TICK = '#616061';
 var FONT_FAMILY = 'Lato, sans-serif';
@@ -144,7 +144,7 @@ function cartesianBase(categories, boundaryGap) {
 		textStyle: { fontFamily: FONT_FAMILY },
 		legend: { show: false },
 		grid: { left: 74, right: 0, top: 8, bottom: 52, containLabel: false },
-		tooltip: { trigger: 'axis', textStyle: { fontFamily: FONT_FAMILY, fontSize: 13 } },
+		tooltip: { trigger: 'axis', order: 'seriesAsc', textStyle: { fontFamily: FONT_FAMILY, fontSize: 13 } },
 		xAxis: {
 			type: 'category',
 			data: categories,
