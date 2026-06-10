@@ -184,8 +184,8 @@ function buildLegend(containerId, names) {
 (function() {
 	var opt = cartesianBase(WEEKDAYS, false);
 	opt.series = [
-		{ name: 'Desktop', data: [800, 920, 880, 1010, 1120], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, triggerLineEvent: true, emphasis: { focus: 'series' } },
-		{ name: 'Mobile', data: [400, 530, 500, 590, 600], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, triggerLineEvent: true, emphasis: { focus: 'series' } }
+		{ name: 'Desktop', data: [800, 920, 880, 1010, 1120], type: 'line', smooth: true, lineStyle: { width: 2 }, symbol: 'circle', symbolSize: 6, emphasis: { focus: 'series' } },
+		{ name: 'Mobile', data: [400, 530, 500, 590, 600], type: 'line', smooth: true, lineStyle: { width: 2 }, symbol: 'circle', symbolSize: 6, emphasis: { focus: 'series' } }
 	];
 	echarts.init(document.getElementById('chart-1')).setOption(opt);
 	buildLegend('legend-1', ['Desktop', 'Mobile']);
@@ -195,10 +195,10 @@ function buildLegend(containerId, names) {
 (function() {
 	var opt = cartesianBase(WEEKDAYS, false);
 	opt.series = [
-		{ name: 'Self-serve signups (US, T1 channels)', data: [880, 940, 1010, 1080, 1150], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, triggerLineEvent: true, emphasis: { focus: 'series' } },
-		{ name: 'Sales-assisted onboarding (mid-market)', data: [320, 360, 400, 440, 480], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, triggerLineEvent: true, emphasis: { focus: 'series' } },
-		{ name: 'Paid acquisition (search + social, blended)', data: [560, 600, 640, 680, 720], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, triggerLineEvent: true, emphasis: { focus: 'series' } },
-		{ name: 'Partner referrals (system integrators)', data: [180, 210, 240, 270, 300], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, triggerLineEvent: true, emphasis: { focus: 'series' } }
+		{ name: 'Self-serve signups (US, T1 channels)', data: [880, 940, 1010, 1080, 1150], type: 'line', smooth: true, lineStyle: { width: 2 }, symbol: 'circle', symbolSize: 6, emphasis: { focus: 'series' } },
+		{ name: 'Sales-assisted onboarding (mid-market)', data: [320, 360, 400, 440, 480], type: 'line', smooth: true, lineStyle: { width: 2 }, symbol: 'circle', symbolSize: 6, emphasis: { focus: 'series' } },
+		{ name: 'Paid acquisition (search + social, blended)', data: [560, 600, 640, 680, 720], type: 'line', smooth: true, lineStyle: { width: 2 }, symbol: 'circle', symbolSize: 6, emphasis: { focus: 'series' } },
+		{ name: 'Partner referrals (system integrators)', data: [180, 210, 240, 270, 300], type: 'line', smooth: true, lineStyle: { width: 2 }, symbol: 'circle', symbolSize: 6, emphasis: { focus: 'series' } }
 	];
 	echarts.init(document.getElementById('chart-2')).setOption(opt);
 	buildLegend('legend-2', ['Self-serve signups (US, T1 channels)', 'Sales-assisted onboarding (mid-market)', 'Paid acquisition (search + social, blended)', 'Partner referrals (system integrators)']);
@@ -208,7 +208,7 @@ function buildLegend(containerId, names) {
 (function() {
 	var opt = cartesianBase(MAX_CATEGORIES, false);
 	opt.series = TEAM_NAMES.map(function(name, i) {
-		return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, triggerLineEvent: true, emphasis: { focus: 'series' } };
+		return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, symbol: 'circle', symbolSize: 6, emphasis: { focus: 'series' } };
 	});
 	echarts.init(document.getElementById('chart-3')).setOption(opt);
 	buildLegend('legend-3', TEAM_NAMES);
@@ -218,7 +218,7 @@ function buildLegend(containerId, names) {
 (function() {
 	var opt = cartesianBase(MAX_CATEGORIES, false);
 	opt.series = TEAM_NAMES.map(function(name, i) {
-		return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 }, triggerLineEvent: true, emphasis: { focus: 'series' } };
+		return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, symbol: 'circle', symbolSize: 6, areaStyle: { opacity: 0.1 }, emphasis: { focus: 'series' } };
 	});
 	echarts.init(document.getElementById('chart-4')).setOption(opt);
 	buildLegend('legend-4', TEAM_NAMES);
@@ -238,7 +238,7 @@ function buildLegend(containerId, names) {
 (function() {
 	var opt = cartesianBase(MAX_CATEGORIES, false);
 	opt.series = TEAM_NAMES.map(function(name, i) {
-		return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 }, triggerLineEvent: true, emphasis: { focus: 'series' } };
+		return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, symbol: 'circle', symbolSize: 6, areaStyle: { opacity: 0.1 }, emphasis: { focus: 'series' } };
 	});
 	echarts.init(document.getElementById('chart-6')).setOption(opt);
 	buildLegend('legend-6', TEAM_NAMES);
