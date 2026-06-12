@@ -15,7 +15,7 @@ body {
 	transition: background 0.3s;
 }
 body.light-mode { background: #f8f8f8; color: #1d1c1d; }
-body.dark-mode { background: #1a1a2e; color: #e0e0e0; }
+body.dark-mode { background: #000000; color: #e0e0e0; }
 .page {
 	display: flex;
 	flex-direction: column;
@@ -52,7 +52,7 @@ body.dark-mode { background: #1a1a2e; color: #e0e0e0; }
 	border-color: #4864D2;
 }
 .dark-mode .tab-btn {
-	background: #2a2a4a;
+	background: #1A1D21;
 	border-color: #444;
 	color: #e0e0e0;
 }
@@ -74,7 +74,7 @@ body.dark-mode { background: #1a1a2e; color: #e0e0e0; }
 	border: 1px solid #ddd;
 }
 .dark-mode .chart-card {
-	background: #2a2a4a;
+	background: #1A1D21;
 	border: 1px solid #3a3a5a;
 }
 .chart-card h3 {
@@ -174,7 +174,7 @@ var DARK_THEME = {
 	axisLine: '#3a3a5a',
 	axisTick: '#b0b0b0',
 	splitLine: '#3a3a5a',
-	pieBorder: '#2a2a4a'
+	pieBorder: '#1A1D21'
 };
 
 function makeFullSeries(offset) {
@@ -183,7 +183,14 @@ function makeFullSeries(offset) {
 	});
 }
 
+function makeBarSeries(offset) {
+	return Array.from({length: 10}, function(_, i) {
+		return Math.round(100 + offset * 50 + i * (10 + offset * 2));
+	});
+}
+
 var MAX_CATEGORIES = Array.from({length: 20}, function(_, i) { return 'Day ' + (i + 1); });
+var BAR_CATEGORIES = Array.from({length: 10}, function(_, i) { return 'Day ' + (i + 1); });
 var WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
 var TEAM_NAMES = ['Team A', 'Team B', 'Team C', 'Team D', 'Team E', 'Team F', 'Team G', 'Team H', 'Team I', 'Team J', 'Team K', 'Team L'];
 
@@ -275,11 +282,11 @@ function renderCharts(prefix, theme) {
 		buildLegend(prefix + '-legend-4', TEAM_NAMES, theme.palette);
 	})();
 
-	// Chart 5: Engagement across all teams - max bounds (Bar, 12 teams)
+	// Chart 5: Engagement across all teams - max bounds (Bar, 12 teams, 10 days)
 	(function() {
-		var opt = cartesianBase(MAX_CATEGORIES, true, theme);
+		var opt = cartesianBase(BAR_CATEGORIES, true, theme);
 		opt.series = TEAM_NAMES.map(function(name, i) {
-			return { name: name, data: makeFullSeries(i), type: 'bar', itemStyle: { borderRadius: [4, 4, 0, 0] } };
+			return { name: name, data: makeBarSeries(i), type: 'bar', itemStyle: { borderRadius: [4, 4, 0, 0] } };
 		});
 		echarts.init(document.getElementById(prefix + '-chart-5')).setOption(opt);
 		buildLegend(prefix + '-legend-5', TEAM_NAMES, theme.palette);
