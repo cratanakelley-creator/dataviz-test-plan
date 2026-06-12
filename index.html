@@ -212,7 +212,11 @@ function cartesianBase(categories, boundaryGap, theme) {
 		textStyle: { fontFamily: FONT_FAMILY },
 		legend: { show: false },
 		grid: { left: 74, right: 0, top: 8, bottom: 52, containLabel: false },
-		tooltip: { trigger: 'axis', order: 'valueDesc', textStyle: { fontFamily: FONT_FAMILY, fontSize: 13 } },
+		tooltip: {
+			trigger: 'axis',
+			order: 'valueDesc',
+			textStyle: { fontFamily: FONT_FAMILY, fontSize: 13 }
+		},
 		xAxis: {
 			type: 'category',
 			data: categories,
@@ -230,6 +234,36 @@ function cartesianBase(categories, boundaryGap, theme) {
 			splitLine: { lineStyle: { color: theme.splitLine } }
 		}
 	};
+}
+
+function setupHighlightTracking(chart) {
+	var highlightedSeries = -1;
+	chart.on('highlight', function(params) {
+		if (params.batch && params.batch.length) {
+			highlightedSeries = params.batch[0].seriesIndex;
+		} else if (params.seriesIndex !== undefined) {
+			highlightedSeries = params.seriesIndex;
+		}
+	});
+	chart.on('downplay', function() {
+		highlightedSeries = -1;
+	});
+	chart.setOption({
+		tooltip: {
+			formatter: function(params) {
+				if (!params || !params.length) return '';
+				var header = '<div style="margin-bottom:4px;font-weight:700">' + params[0].axisValueLabel + '</div>';
+				var sorted = params.slice().sort(function(a, b) { return b.value - a.value; });
+				var lines = sorted.map(function(p) {
+					var bold = (p.seriesIndex === highlightedSeries);
+					var style = bold ? 'font-weight:700;' : 'opacity:0.65;';
+					return '<div style="display:flex;align-items:center;gap:6px;padding:2px 0;' + style + '">' +
+						p.marker + '<span style="flex:1">' + p.seriesName + '</span><span style="font-weight:700;margin-left:12px">' + p.value + '</span></div>';
+				});
+				return header + lines.join('');
+			}
+		}
+	});
 }
 
 function buildLegend(containerId, names, palette) {
@@ -254,10 +288,12 @@ function renderCharts(prefix, theme) {
 	(function() {
 		var opt = cartesianBase(WEEKDAYS, false, theme);
 		opt.series = [
-			{ name: 'Desktop', data: [800, 870, 920, 860, 1010], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
-			{ name: 'Mobile', data: [400, 530, 480, 620, 590], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false }
+			{ name: 'Desktop', data: [800, 870, 920, 860, 1010], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, emphasis: { focus: 'series' } },
+			{ name: 'Mobile', data: [400, 530, 480, 620, 590], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, emphasis: { focus: 'series' } }
 		];
-		echarts.init(document.getElementById(prefix + '-chart-1')).setOption(opt);
+		var chart = echarts.init(document.getElementById(prefix + '-chart-1'));
+		chart.setOption(opt);
+		setupHighlightTracking(chart);
 		buildLegend(prefix + '-legend-1', ['Desktop', 'Mobile'], theme.palette);
 	})();
 
@@ -265,12 +301,14 @@ function renderCharts(prefix, theme) {
 	(function() {
 		var opt = cartesianBase(WEEKDAYS, false, theme);
 		opt.series = [
-			{ name: 'Self-serve signups (US, T1 channels)', data: [880, 1020, 960, 1080, 1150], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
-			{ name: 'Sales-assisted onboarding (mid-market)', data: [320, 380, 350, 410, 480], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
-			{ name: 'Paid acquisition (search + social, blended)', data: [560, 620, 580, 700, 650], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
-			{ name: 'Partner referrals (system integrators)', data: [180, 240, 200, 310, 270], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false }
+			{ name: 'Self-serve signups (US, T1 channels)', data: [880, 1020, 960, 1080, 1150], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, emphasis: { focus: 'series' } },
+			{ name: 'Sales-assisted onboarding (mid-market)', data: [320, 380, 350, 410, 480], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, emphasis: { focus: 'series' } },
+			{ name: 'Paid acquisition (search + social, blended)', data: [560, 620, 580, 700, 650], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, emphasis: { focus: 'series' } },
+			{ name: 'Partner referrals (system integrators)', data: [180, 240, 200, 310, 270], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, emphasis: { focus: 'series' } }
 		];
-		echarts.init(document.getElementById(prefix + '-chart-2')).setOption(opt);
+		var chart = echarts.init(document.getElementById(prefix + '-chart-2'));
+		chart.setOption(opt);
+		setupHighlightTracking(chart);
 		buildLegend(prefix + '-legend-2', ['Self-serve signups (US, T1 channels)', 'Sales-assisted onboarding (mid-market)', 'Paid acquisition (search + social, blended)', 'Partner referrals (system integrators)'], theme.palette);
 	})();
 
@@ -278,9 +316,11 @@ function renderCharts(prefix, theme) {
 	(function() {
 		var opt = cartesianBase(MAX_CATEGORIES, false, theme);
 		opt.series = TEAM_NAMES.map(function(name, i) {
-			return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false };
+			return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, emphasis: { focus: 'series' } };
 		});
-		echarts.init(document.getElementById(prefix + '-chart-3')).setOption(opt);
+		var chart = echarts.init(document.getElementById(prefix + '-chart-3'));
+		chart.setOption(opt);
+		setupHighlightTracking(chart);
 		buildLegend(prefix + '-legend-3', TEAM_NAMES, theme.palette);
 	})();
 
@@ -288,19 +328,23 @@ function renderCharts(prefix, theme) {
 	(function() {
 		var opt = cartesianBase(MAX_CATEGORIES, false, theme);
 		opt.series = TEAM_NAMES.map(function(name, i) {
-			return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } };
+			return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 }, emphasis: { focus: 'series' } };
 		});
-		echarts.init(document.getElementById(prefix + '-chart-4')).setOption(opt);
+		var chart = echarts.init(document.getElementById(prefix + '-chart-4'));
+		chart.setOption(opt);
+		setupHighlightTracking(chart);
 		buildLegend(prefix + '-legend-4', TEAM_NAMES, theme.palette);
 	})();
 
-	// Chart 5: Engagement across all teams - max bounds (Bar, 12 teams, 10 days)
+	// Chart 5: Engagement across all teams - max bounds (Bar, 12 teams, 5 days)
 	(function() {
 		var opt = cartesianBase(BAR_CATEGORIES, true, theme);
 		opt.series = TEAM_NAMES.map(function(name, i) {
-			return { name: name, data: makeBarSeries(i), type: 'bar', itemStyle: { borderRadius: [4, 4, 0, 0] } };
+			return { name: name, data: makeBarSeries(i), type: 'bar', itemStyle: { borderRadius: [4, 4, 0, 0] }, emphasis: { focus: 'series' } };
 		});
-		echarts.init(document.getElementById(prefix + '-chart-5')).setOption(opt);
+		var chart = echarts.init(document.getElementById(prefix + '-chart-5'));
+		chart.setOption(opt);
+		setupHighlightTracking(chart);
 		buildLegend(prefix + '-legend-5', TEAM_NAMES, theme.palette);
 	})();
 
@@ -308,9 +352,11 @@ function renderCharts(prefix, theme) {
 	(function() {
 		var opt = cartesianBase(MAX_CATEGORIES, false, theme);
 		opt.series = TEAM_NAMES.map(function(name, i) {
-			return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } };
+			return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 }, emphasis: { focus: 'series' } };
 		});
-		echarts.init(document.getElementById(prefix + '-chart-6')).setOption(opt);
+		var chart = echarts.init(document.getElementById(prefix + '-chart-6'));
+		chart.setOption(opt);
+		setupHighlightTracking(chart);
 		buildLegend(prefix + '-legend-6', TEAM_NAMES, theme.palette);
 	})();
 
@@ -353,9 +399,11 @@ function renderCharts(prefix, theme) {
 	(function() {
 		var opt = cartesianBase(MAX_CATEGORIES, false, theme);
 		opt.series = TEAM_NAMES.map(function(name, i) {
-			return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 1 }, showSymbol: false, stack: 'total', areaStyle: { opacity: 0.8 } };
+			return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 1 }, showSymbol: false, stack: 'total', areaStyle: { opacity: 0.8 }, emphasis: { focus: 'series' } };
 		});
-		echarts.init(document.getElementById(prefix + '-chart-8')).setOption(opt);
+		var chart = echarts.init(document.getElementById(prefix + '-chart-8'));
+		chart.setOption(opt);
+		setupHighlightTracking(chart);
 		buildLegend(prefix + '-legend-8', TEAM_NAMES, theme.palette);
 	})();
 }
