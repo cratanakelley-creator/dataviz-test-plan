@@ -237,16 +237,11 @@ function cartesianBase(categories, boundaryGap, theme) {
 }
 
 function setupHighlightTracking(chart) {
-	var highlightedSeries = -1;
-	chart.on('highlight', function(params) {
-		if (params.batch && params.batch.length) {
-			highlightedSeries = params.batch[0].seriesIndex;
-		} else if (params.seriesIndex !== undefined) {
-			highlightedSeries = params.seriesIndex;
-		}
-	});
-	chart.on('downplay', function() {
-		highlightedSeries = -1;
+	var mouseY = -1;
+	var chartDom = chart.getDom();
+	chartDom.addEventListener('mousemove', function(e) {
+		var rect = chartDom.getBoundingClientRect();
+		mouseY = e.clientY - rect.top;
 	});
 	chart.setOption({
 		tooltip: {
@@ -254,8 +249,24 @@ function setupHighlightTracking(chart) {
 				if (!params || !params.length) return '';
 				var header = '<div style="margin-bottom:4px;font-weight:700">' + params[0].axisValueLabel + '</div>';
 				var sorted = params.slice().sort(function(a, b) { return b.value - a.value; });
+				var nearestIdx = -1;
+				if (mouseY >= 0) {
+					var grid = chart.getModel().getComponent('grid', 0);
+					var coordSys = chart.getModel().getComponent('xAxis', 0).axis.grid.getRect();
+					var minDist = Infinity;
+					sorted.forEach(function(p) {
+						var point = chart.convertToPixel({seriesIndex: p.seriesIndex}, [p.dataIndex, p.value]);
+						if (point) {
+							var dist = Math.abs(point[1] - mouseY);
+							if (dist < minDist) {
+								minDist = dist;
+								nearestIdx = p.seriesIndex;
+							}
+						}
+					});
+				}
 				var lines = sorted.map(function(p) {
-					var bold = (p.seriesIndex === highlightedSeries);
+					var bold = (p.seriesIndex === nearestIdx);
 					var style = bold ? 'font-weight:700;' : 'opacity:0.65;';
 					return '<div style="display:flex;align-items:center;gap:6px;padding:2px 0;' + style + '">' +
 						p.marker + '<span style="flex:1">' + p.seriesName + '</span><span style="font-weight:700;margin-left:12px">' + p.value + '</span></div>';
