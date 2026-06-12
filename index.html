@@ -177,15 +177,27 @@ var DARK_THEME = {
 	pieBorder: '#1A1D21'
 };
 
+function seededRandom(seed) {
+	var x = Math.sin(seed * 9301 + 49297) * 49297;
+	return x - Math.floor(x);
+}
+
 function makeFullSeries(offset) {
+	var base = 100 + offset * 45;
+	var trend = 8 + offset * 1.5;
 	return Array.from({length: 20}, function(_, i) {
-		return Math.round(100 + offset * 50 + i * (10 + offset * 2));
+		var noise = (seededRandom(offset * 100 + i) - 0.5) * (60 + offset * 10);
+		var cyclical = Math.sin((i + offset * 2) * 0.7) * (20 + offset * 5);
+		return Math.round(base + i * trend + noise + cyclical);
 	});
 }
 
 function makeBarSeries(offset) {
+	var base = 120 + offset * 40;
 	return Array.from({length: 5}, function(_, i) {
-		return Math.round(100 + offset * 50 + i * (10 + offset * 2));
+		var noise = (seededRandom(offset * 50 + i * 7) - 0.5) * (80 + offset * 12);
+		var bump = Math.sin((i + offset) * 1.2) * (30 + offset * 6);
+		return Math.round(base + i * 15 + noise + bump);
 	});
 }
 
@@ -242,8 +254,8 @@ function renderCharts(prefix, theme) {
 	(function() {
 		var opt = cartesianBase(WEEKDAYS, false, theme);
 		opt.series = [
-			{ name: 'Desktop', data: [800, 920, 880, 1010, 1120], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
-			{ name: 'Mobile', data: [400, 530, 500, 590, 600], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false }
+			{ name: 'Desktop', data: [800, 870, 920, 860, 1010], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
+			{ name: 'Mobile', data: [400, 530, 480, 620, 590], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false }
 		];
 		echarts.init(document.getElementById(prefix + '-chart-1')).setOption(opt);
 		buildLegend(prefix + '-legend-1', ['Desktop', 'Mobile'], theme.palette);
@@ -253,10 +265,10 @@ function renderCharts(prefix, theme) {
 	(function() {
 		var opt = cartesianBase(WEEKDAYS, false, theme);
 		opt.series = [
-			{ name: 'Self-serve signups (US, T1 channels)', data: [880, 940, 1010, 1080, 1150], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
-			{ name: 'Sales-assisted onboarding (mid-market)', data: [320, 360, 400, 440, 480], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
-			{ name: 'Paid acquisition (search + social, blended)', data: [560, 600, 640, 680, 720], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
-			{ name: 'Partner referrals (system integrators)', data: [180, 210, 240, 270, 300], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false }
+			{ name: 'Self-serve signups (US, T1 channels)', data: [880, 1020, 960, 1080, 1150], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
+			{ name: 'Sales-assisted onboarding (mid-market)', data: [320, 380, 350, 410, 480], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
+			{ name: 'Paid acquisition (search + social, blended)', data: [560, 620, 580, 700, 650], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
+			{ name: 'Partner referrals (system integrators)', data: [180, 240, 200, 310, 270], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false }
 		];
 		echarts.init(document.getElementById(prefix + '-chart-2')).setOption(opt);
 		buildLegend(prefix + '-legend-2', ['Self-serve signups (US, T1 channels)', 'Sales-assisted onboarding (mid-market)', 'Paid acquisition (search + social, blended)', 'Partner referrals (system integrators)'], theme.palette);
