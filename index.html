@@ -237,10 +237,12 @@ function cartesianBase(categories, boundaryGap, theme) {
 }
 
 function setupHighlightTracking(chart) {
+	var mouseX = -1;
 	var mouseY = -1;
 	var chartDom = chart.getDom();
 	chartDom.addEventListener('mousemove', function(e) {
 		var rect = chartDom.getBoundingClientRect();
+		mouseX = e.clientX - rect.left;
 		mouseY = e.clientY - rect.top;
 	});
 	chart.setOption({
@@ -250,14 +252,13 @@ function setupHighlightTracking(chart) {
 				var header = '<div style="margin-bottom:4px;font-weight:700">' + params[0].axisValueLabel + '</div>';
 				var sorted = params.slice().sort(function(a, b) { return b.value - a.value; });
 				var nearestIdx = -1;
-				if (mouseY >= 0) {
-					var grid = chart.getModel().getComponent('grid', 0);
-					var coordSys = chart.getModel().getComponent('xAxis', 0).axis.grid.getRect();
+				var isBar = params[0].componentSubType === 'bar';
+				if ((isBar ? mouseX : mouseY) >= 0) {
 					var minDist = Infinity;
 					sorted.forEach(function(p) {
 						var point = chart.convertToPixel({seriesIndex: p.seriesIndex}, [p.dataIndex, p.value]);
 						if (point) {
-							var dist = Math.abs(point[1] - mouseY);
+							var dist = isBar ? Math.abs(point[0] - mouseX) : Math.abs(point[1] - mouseY);
 							if (dist < minDist) {
 								minDist = dist;
 								nearestIdx = p.seriesIndex;
