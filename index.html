@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,10 +10,12 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
 	font-family: Lato, sans-serif;
-	background: #f8f8f8;
 	padding: 24px;
 	color: #1d1c1d;
+	transition: background 0.3s;
 }
+body.light-mode { background: #f8f8f8; color: #1d1c1d; }
+body.dark-mode { background: #1a1a2e; color: #e0e0e0; }
 .page {
 	display: flex;
 	flex-direction: column;
@@ -28,13 +29,53 @@ body {
 	font-weight: 700;
 	margin-bottom: 8px;
 }
-.chart-card {
+.tabs {
+	display: flex;
+	gap: 8px;
+	margin-bottom: 16px;
+}
+.tab-btn {
+	padding: 10px 24px;
+	border: 2px solid #ddd;
+	border-radius: 6px;
 	background: #fff;
-	border: 1px solid #ddd;
+	font-family: Lato, sans-serif;
+	font-size: 14px;
+	font-weight: 700;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+.tab-btn:hover { border-color: #999; }
+.tab-btn.active {
+	background: #4864D2;
+	color: #fff;
+	border-color: #4864D2;
+}
+.dark-mode .tab-btn {
+	background: #2a2a4a;
+	border-color: #444;
+	color: #e0e0e0;
+}
+.dark-mode .tab-btn:hover { border-color: #888; }
+.dark-mode .tab-btn.active {
+	background: #4065C5;
+	color: #fff;
+	border-color: #4065C5;
+}
+.chart-card {
 	border-radius: 8px;
 	padding: 12px;
 	width: 100%;
 	max-width: 624px;
+	transition: all 0.3s;
+}
+.light-mode .chart-card {
+	background: #fff;
+	border: 1px solid #ddd;
+}
+.dark-mode .chart-card {
+	background: #2a2a4a;
+	border: 1px solid #3a3a5a;
 }
 .chart-card h3 {
 	font-size: 15px;
@@ -68,52 +109,44 @@ body {
 	border-radius: 9999px;
 	flex-shrink: 0;
 }
+.tab-content { display: none; width: 100%; }
+.tab-content.active {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 24px;
+}
 </style>
 </head>
-<body>
+<body class="light-mode">
 <div class="page">
 	<h1 class="page-title">Data Visualization - Test Plan Charts</h1>
 
-	<div class="chart-card">
-		<h3>Weekly active users by platform</h3>
-		<div class="chart-container" id="chart-1"></div>
-		<div class="legend" id="legend-1"></div>
+	<div class="tabs">
+		<button class="tab-btn active" data-tab="light">Light Mode</button>
+		<button class="tab-btn" data-tab="dark">Dark Mode</button>
 	</div>
 
-	<div class="chart-card">
-		<h3>Engagement by acquisition channel</h3>
-		<div class="chart-container" id="chart-2"></div>
-		<div class="legend" id="legend-2"></div>
+	<div class="tab-content active" id="tab-light">
+		<div class="chart-card"><h3>Weekly active users by platform</h3><div class="chart-container" id="light-chart-1"></div><div class="legend" id="light-legend-1"></div></div>
+		<div class="chart-card"><h3>Engagement by acquisition channel</h3><div class="chart-container" id="light-chart-2"></div><div class="legend" id="light-legend-2"></div></div>
+		<div class="chart-card"><h3>Engagement across all teams (max bounds)</h3><div class="chart-container" id="light-chart-3"></div><div class="legend" id="light-legend-3"></div></div>
+		<div class="chart-card"><h3>Engagement across all teams (max bounds, area)</h3><div class="chart-container" id="light-chart-4"></div><div class="legend" id="light-legend-4"></div></div>
+		<div class="chart-card"><h3>Engagement across all teams (max bounds, bar)</h3><div class="chart-container" id="light-chart-5"></div><div class="legend" id="light-legend-5"></div></div>
+		<div class="chart-card"><h3>Engagement across all teams (max bounds, area)</h3><div class="chart-container" id="light-chart-6"></div><div class="legend" id="light-legend-6"></div></div>
+		<div class="chart-card"><h3>Channels by category (max bounds)</h3><div class="chart-container" id="light-chart-7"></div><div class="legend" id="light-legend-7"></div></div>
+		<div class="chart-card"><h3>Engagement across all teams (stacked area)</h3><div class="chart-container" id="light-chart-8"></div><div class="legend" id="light-legend-8"></div></div>
 	</div>
 
-	<div class="chart-card">
-		<h3>Engagement across all teams (max bounds)</h3>
-		<div class="chart-container" id="chart-3"></div>
-		<div class="legend" id="legend-3"></div>
-	</div>
-
-	<div class="chart-card">
-		<h3>Engagement across all teams (max bounds, area)</h3>
-		<div class="chart-container" id="chart-4"></div>
-		<div class="legend" id="legend-4"></div>
-	</div>
-
-	<div class="chart-card">
-		<h3>Engagement across all teams (max bounds, bar)</h3>
-		<div class="chart-container" id="chart-5"></div>
-		<div class="legend" id="legend-5"></div>
-	</div>
-
-	<div class="chart-card">
-		<h3>Engagement across all teams (max bounds, area)</h3>
-		<div class="chart-container" id="chart-6"></div>
-		<div class="legend" id="legend-6"></div>
-	</div>
-
-	<div class="chart-card">
-		<h3>Channels by category (max bounds)</h3>
-		<div class="chart-container" id="chart-7"></div>
-		<div class="legend" id="legend-7"></div>
+	<div class="tab-content" id="tab-dark">
+		<div class="chart-card"><h3>Weekly active users by platform</h3><div class="chart-container" id="dark-chart-1"></div><div class="legend" id="dark-legend-1"></div></div>
+		<div class="chart-card"><h3>Engagement by acquisition channel</h3><div class="chart-container" id="dark-chart-2"></div><div class="legend" id="dark-legend-2"></div></div>
+		<div class="chart-card"><h3>Engagement across all teams (max bounds)</h3><div class="chart-container" id="dark-chart-3"></div><div class="legend" id="dark-legend-3"></div></div>
+		<div class="chart-card"><h3>Engagement across all teams (max bounds, area)</h3><div class="chart-container" id="dark-chart-4"></div><div class="legend" id="dark-legend-4"></div></div>
+		<div class="chart-card"><h3>Engagement across all teams (max bounds, bar)</h3><div class="chart-container" id="dark-chart-5"></div><div class="legend" id="dark-legend-5"></div></div>
+		<div class="chart-card"><h3>Engagement across all teams (max bounds, area)</h3><div class="chart-container" id="dark-chart-6"></div><div class="legend" id="dark-legend-6"></div></div>
+		<div class="chart-card"><h3>Channels by category (max bounds)</h3><div class="chart-container" id="dark-chart-7"></div><div class="legend" id="dark-legend-7"></div></div>
+		<div class="chart-card"><h3>Engagement across all teams (stacked area)</h3><div class="chart-container" id="dark-chart-8"></div><div class="legend" id="dark-legend-8"></div></div>
 	</div>
 </div>
 
@@ -123,10 +156,26 @@ if (typeof echarts === 'undefined') {
 	throw new Error('ECharts not loaded');
 }
 
-var PALETTE = ['#DE7A0D', '#2840A9', '#0E9DD3', '#C01343', '#20A271', '#C84600', '#C474D3', '#0B527B', '#5F7BE1', '#611F69', '#EF3E75', '#007A5A'];
-var AXIS_LINE = '#DDDDDD';
-var AXIS_TICK = '#616061';
+var LIGHT_PALETTE = ['#E96825', '#20A271', '#C474D3', '#0E9DD3', '#EF3E75', '#4864D2', '#DC540C', '#007A5A', '#611F69', '#0071A4', '#C81343', '#2848A9'];
+var DARK_PALETTE = ['#D56A37', '#259B69', '#826EC3', '#1699CA', '#D94C75', '#4065C5', '#DA8956', '#63C29A', '#D8BAE1', '#58BDDE', '#E68BA7', '#899BDC'];
+
 var FONT_FAMILY = 'Lato, sans-serif';
+
+var LIGHT_THEME = {
+	palette: LIGHT_PALETTE,
+	axisLine: '#DDDDDD',
+	axisTick: '#616061',
+	splitLine: '#DDDDDD',
+	pieBorder: '#ffffff'
+};
+
+var DARK_THEME = {
+	palette: DARK_PALETTE,
+	axisLine: '#3a3a5a',
+	axisTick: '#b0b0b0',
+	splitLine: '#3a3a5a',
+	pieBorder: '#2a2a4a'
+};
 
 function makeFullSeries(offset) {
 	return Array.from({length: 20}, function(_, i) {
@@ -138,9 +187,9 @@ var MAX_CATEGORIES = Array.from({length: 20}, function(_, i) { return 'Day ' + (
 var WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
 var TEAM_NAMES = ['Team A', 'Team B', 'Team C', 'Team D', 'Team E', 'Team F', 'Team G', 'Team H', 'Team I', 'Team J', 'Team K', 'Team L'];
 
-function cartesianBase(categories, boundaryGap) {
+function cartesianBase(categories, boundaryGap, theme) {
 	return {
-		color: PALETTE,
+		color: theme.palette,
 		textStyle: { fontFamily: FONT_FAMILY },
 		legend: { show: false },
 		grid: { left: 74, right: 0, top: 8, bottom: 52, containLabel: false },
@@ -149,29 +198,30 @@ function cartesianBase(categories, boundaryGap) {
 			type: 'category',
 			data: categories,
 			boundaryGap: !!boundaryGap,
-			axisLine: { lineStyle: { color: AXIS_LINE } },
+			axisLine: { lineStyle: { color: theme.axisLine } },
 			axisTick: { show: false },
-			axisLabel: { color: AXIS_TICK, fontFamily: FONT_FAMILY, fontSize: 13, lineHeight: 18, margin: 8, hideOverlap: true },
+			axisLabel: { color: theme.axisTick, fontFamily: FONT_FAMILY, fontSize: 13, lineHeight: 18, margin: 8, hideOverlap: true },
 			splitLine: { show: false }
 		},
 		yAxis: {
 			type: 'value',
 			axisLine: { show: false },
 			axisTick: { show: false },
-			axisLabel: { color: AXIS_TICK, fontFamily: FONT_FAMILY, fontSize: 13, lineHeight: 18, margin: 8 },
-			splitLine: { lineStyle: { color: AXIS_LINE } }
+			axisLabel: { color: theme.axisTick, fontFamily: FONT_FAMILY, fontSize: 13, lineHeight: 18, margin: 8 },
+			splitLine: { lineStyle: { color: theme.splitLine } }
 		}
 	};
 }
 
-function buildLegend(containerId, names) {
+function buildLegend(containerId, names, palette) {
 	var el = document.getElementById(containerId);
+	el.innerHTML = '';
 	names.forEach(function(name, i) {
 		var item = document.createElement('span');
 		item.className = 'legend-item';
 		var swatch = document.createElement('span');
 		swatch.className = 'legend-swatch';
-		swatch.style.backgroundColor = PALETTE[i % PALETTE.length];
+		swatch.style.backgroundColor = palette[i % palette.length];
 		var label = document.createElement('span');
 		label.textContent = name;
 		item.appendChild(swatch);
@@ -180,108 +230,159 @@ function buildLegend(containerId, names) {
 	});
 }
 
-// Chart 1: Weekly active users by platform (Line)
-(function() {
-	var opt = cartesianBase(WEEKDAYS, false);
-	opt.series = [
-		{ name: 'Desktop', data: [800, 920, 880, 1010, 1120], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
-		{ name: 'Mobile', data: [400, 530, 500, 590, 600], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false }
-	];
-	echarts.init(document.getElementById('chart-1')).setOption(opt);
-	buildLegend('legend-1', ['Desktop', 'Mobile']);
-})();
+function renderCharts(prefix, theme) {
+	// Chart 1: Weekly active users by platform (Line)
+	(function() {
+		var opt = cartesianBase(WEEKDAYS, false, theme);
+		opt.series = [
+			{ name: 'Desktop', data: [800, 920, 880, 1010, 1120], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
+			{ name: 'Mobile', data: [400, 530, 500, 590, 600], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false }
+		];
+		echarts.init(document.getElementById(prefix + '-chart-1')).setOption(opt);
+		buildLegend(prefix + '-legend-1', ['Desktop', 'Mobile'], theme.palette);
+	})();
 
-// Chart 2: Engagement by acquisition channel (Line)
-(function() {
-	var opt = cartesianBase(WEEKDAYS, false);
-	opt.series = [
-		{ name: 'Self-serve signups (US, T1 channels)', data: [880, 940, 1010, 1080, 1150], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
-		{ name: 'Sales-assisted onboarding (mid-market)', data: [320, 360, 400, 440, 480], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
-		{ name: 'Paid acquisition (search + social, blended)', data: [560, 600, 640, 680, 720], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
-		{ name: 'Partner referrals (system integrators)', data: [180, 210, 240, 270, 300], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false }
-	];
-	echarts.init(document.getElementById('chart-2')).setOption(opt);
-	buildLegend('legend-2', ['Self-serve signups (US, T1 channels)', 'Sales-assisted onboarding (mid-market)', 'Paid acquisition (search + social, blended)', 'Partner referrals (system integrators)']);
-})();
+	// Chart 2: Engagement by acquisition channel (Line)
+	(function() {
+		var opt = cartesianBase(WEEKDAYS, false, theme);
+		opt.series = [
+			{ name: 'Self-serve signups (US, T1 channels)', data: [880, 940, 1010, 1080, 1150], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
+			{ name: 'Sales-assisted onboarding (mid-market)', data: [320, 360, 400, 440, 480], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
+			{ name: 'Paid acquisition (search + social, blended)', data: [560, 600, 640, 680, 720], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false },
+			{ name: 'Partner referrals (system integrators)', data: [180, 210, 240, 270, 300], type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false }
+		];
+		echarts.init(document.getElementById(prefix + '-chart-2')).setOption(opt);
+		buildLegend(prefix + '-legend-2', ['Self-serve signups (US, T1 channels)', 'Sales-assisted onboarding (mid-market)', 'Paid acquisition (search + social, blended)', 'Partner referrals (system integrators)'], theme.palette);
+	})();
 
-// Chart 3: Engagement across all teams - max bounds (Line, 12 teams)
-(function() {
-	var opt = cartesianBase(MAX_CATEGORIES, false);
-	opt.series = TEAM_NAMES.map(function(name, i) {
-		return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false };
+	// Chart 3: Engagement across all teams - max bounds (Line, 12 teams)
+	(function() {
+		var opt = cartesianBase(MAX_CATEGORIES, false, theme);
+		opt.series = TEAM_NAMES.map(function(name, i) {
+			return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false };
+		});
+		echarts.init(document.getElementById(prefix + '-chart-3')).setOption(opt);
+		buildLegend(prefix + '-legend-3', TEAM_NAMES, theme.palette);
+	})();
+
+	// Chart 4: Engagement across all teams - max bounds (Area, 12 teams)
+	(function() {
+		var opt = cartesianBase(MAX_CATEGORIES, false, theme);
+		opt.series = TEAM_NAMES.map(function(name, i) {
+			return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } };
+		});
+		echarts.init(document.getElementById(prefix + '-chart-4')).setOption(opt);
+		buildLegend(prefix + '-legend-4', TEAM_NAMES, theme.palette);
+	})();
+
+	// Chart 5: Engagement across all teams - max bounds (Bar, 12 teams)
+	(function() {
+		var opt = cartesianBase(MAX_CATEGORIES, true, theme);
+		opt.series = TEAM_NAMES.map(function(name, i) {
+			return { name: name, data: makeFullSeries(i), type: 'bar', itemStyle: { borderRadius: [4, 4, 0, 0] } };
+		});
+		echarts.init(document.getElementById(prefix + '-chart-5')).setOption(opt);
+		buildLegend(prefix + '-legend-5', TEAM_NAMES, theme.palette);
+	})();
+
+	// Chart 6: Engagement across all teams - max bounds (Area, 12 teams)
+	(function() {
+		var opt = cartesianBase(MAX_CATEGORIES, false, theme);
+		opt.series = TEAM_NAMES.map(function(name, i) {
+			return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } };
+		});
+		echarts.init(document.getElementById(prefix + '-chart-6')).setOption(opt);
+		buildLegend(prefix + '-legend-6', TEAM_NAMES, theme.palette);
+	})();
+
+	// Chart 7: Channels by category - max bounds (Pie)
+	(function() {
+		var segments = [
+			{ label: 'Engineering', value: 320 },
+			{ label: 'Design', value: 180 },
+			{ label: 'Product', value: 220 },
+			{ label: 'Sales', value: 260 },
+			{ label: 'Marketing', value: 140 },
+			{ label: 'Support', value: 200 },
+			{ label: 'Operations', value: 110 },
+			{ label: 'Finance', value: 90 },
+			{ label: 'People', value: 70 },
+			{ label: 'Legal', value: 50 },
+			{ label: 'Security', value: 80 },
+			{ label: 'Other', value: 60 }
+		];
+		var opt = {
+			color: theme.palette,
+			textStyle: { fontFamily: FONT_FAMILY },
+			legend: { show: false },
+			tooltip: { trigger: 'item', textStyle: { fontFamily: FONT_FAMILY, fontSize: 13 } },
+			series: [{
+				type: 'pie',
+				radius: '80%',
+				center: ['50%', '50%'],
+				label: { show: false },
+				labelLine: { show: false },
+				itemStyle: { borderColor: theme.pieBorder, borderWidth: 2 },
+				data: segments.map(function(s) { return { name: s.label, value: s.value }; })
+			}]
+		};
+		echarts.init(document.getElementById(prefix + '-chart-7')).setOption(opt);
+		buildLegend(prefix + '-legend-7', segments.map(function(s) { return s.label; }), theme.palette);
+	})();
+
+	// Chart 8: Stacked area chart (NEW)
+	(function() {
+		var opt = cartesianBase(MAX_CATEGORIES, false, theme);
+		opt.series = TEAM_NAMES.map(function(name, i) {
+			return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 1 }, showSymbol: false, stack: 'total', areaStyle: { opacity: 0.8 } };
+		});
+		echarts.init(document.getElementById(prefix + '-chart-8')).setOption(opt);
+		buildLegend(prefix + '-legend-8', TEAM_NAMES, theme.palette);
+	})();
+}
+
+function disposeCharts(prefix) {
+	for (var i = 1; i <= 8; i++) {
+		var el = document.getElementById(prefix + '-chart-' + i);
+		var instance = echarts.getInstanceByDom(el);
+		if (instance) instance.dispose();
+	}
+}
+
+function switchTab(tab) {
+	var lightTab = document.getElementById('tab-light');
+	var darkTab = document.getElementById('tab-dark');
+	var btns = document.querySelectorAll('.tab-btn');
+
+	btns.forEach(function(btn) {
+		btn.classList.toggle('active', btn.getAttribute('data-tab') === tab);
 	});
-	echarts.init(document.getElementById('chart-3')).setOption(opt);
-	buildLegend('legend-3', TEAM_NAMES);
-})();
 
-// Chart 4: Engagement across all teams - max bounds (Area, 12 teams)
-(function() {
-	var opt = cartesianBase(MAX_CATEGORIES, false);
-	opt.series = TEAM_NAMES.map(function(name, i) {
-		return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } };
+	if (tab === 'light') {
+		document.body.className = 'light-mode';
+		disposeCharts('dark');
+		darkTab.classList.remove('active');
+		lightTab.classList.add('active');
+		setTimeout(function() { renderCharts('light', LIGHT_THEME); }, 50);
+	} else {
+		document.body.className = 'dark-mode';
+		disposeCharts('light');
+		lightTab.classList.remove('active');
+		darkTab.classList.add('active');
+		setTimeout(function() { renderCharts('dark', DARK_THEME); }, 50);
+	}
+}
+
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+	btn.addEventListener('click', function() {
+		switchTab(this.getAttribute('data-tab'));
 	});
-	echarts.init(document.getElementById('chart-4')).setOption(opt);
-	buildLegend('legend-4', TEAM_NAMES);
-})();
+});
 
-// Chart 5: Engagement across all teams - max bounds (Bar, 12 teams)
-(function() {
-	var opt = cartesianBase(MAX_CATEGORIES, true);
-	opt.series = TEAM_NAMES.map(function(name, i) {
-		return { name: name, data: makeFullSeries(i), type: 'bar', itemStyle: { borderRadius: [4, 4, 0, 0] } };
-	});
-	echarts.init(document.getElementById('chart-5')).setOption(opt);
-	buildLegend('legend-5', TEAM_NAMES);
-})();
+renderCharts('light', LIGHT_THEME);
 
-// Chart 6: Engagement across all teams - max bounds (Area, 12 teams)
-(function() {
-	var opt = cartesianBase(MAX_CATEGORIES, false);
-	opt.series = TEAM_NAMES.map(function(name, i) {
-		return { name: name, data: makeFullSeries(i), type: 'line', smooth: true, lineStyle: { width: 2 }, showSymbol: false, areaStyle: { opacity: 0.1 } };
-	});
-	echarts.init(document.getElementById('chart-6')).setOption(opt);
-	buildLegend('legend-6', TEAM_NAMES);
-})();
-
-// Chart 7: Channels by category - max bounds (Pie)
-(function() {
-	var segments = [
-		{ label: 'Engineering', value: 320 },
-		{ label: 'Design', value: 180 },
-		{ label: 'Product', value: 220 },
-		{ label: 'Sales', value: 260 },
-		{ label: 'Marketing', value: 140 },
-		{ label: 'Support', value: 200 },
-		{ label: 'Operations', value: 110 },
-		{ label: 'Finance', value: 90 },
-		{ label: 'People', value: 70 },
-		{ label: 'Legal', value: 50 },
-		{ label: 'Security', value: 80 },
-		{ label: 'Other', value: 60 }
-	];
-	var opt = {
-		color: PALETTE,
-		textStyle: { fontFamily: FONT_FAMILY },
-		legend: { show: false },
-		tooltip: { trigger: 'item', textStyle: { fontFamily: FONT_FAMILY, fontSize: 13 } },
-		series: [{
-			type: 'pie',
-			radius: '80%',
-			center: ['50%', '50%'],
-			label: { show: false },
-			labelLine: { show: false },
-			itemStyle: { borderColor: '#ffffff', borderWidth: 2 },
-			data: segments.map(function(s) { return { name: s.label, value: s.value }; })
-		}]
-	};
-	echarts.init(document.getElementById('chart-7')).setOption(opt);
-	buildLegend('legend-7', segments.map(function(s) { return s.label; }));
-})();
-
-// Resize all charts on window resize
 window.addEventListener('resize', function() {
-	var containers = document.querySelectorAll('.chart-container');
+	var containers = document.querySelectorAll('.tab-content.active .chart-container');
 	containers.forEach(function(el) {
 		var instance = echarts.getInstanceByDom(el);
 		if (instance) instance.resize();
