@@ -184,13 +184,13 @@ function makeFullSeries(offset) {
 }
 
 function makeBarSeries(offset) {
-	return Array.from({length: 10}, function(_, i) {
+	return Array.from({length: 5}, function(_, i) {
 		return Math.round(100 + offset * 50 + i * (10 + offset * 2));
 	});
 }
 
 var MAX_CATEGORIES = Array.from({length: 20}, function(_, i) { return 'Day ' + (i + 1); });
-var BAR_CATEGORIES = Array.from({length: 10}, function(_, i) { return 'Day ' + (i + 1); });
+var BAR_CATEGORIES = Array.from({length: 5}, function(_, i) { return 'Day ' + (i + 1); });
 var WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
 var TEAM_NAMES = ['Team A', 'Team B', 'Team C', 'Team D', 'Team E', 'Team F', 'Team G', 'Team H', 'Team I', 'Team J', 'Team K', 'Team L'];
 
